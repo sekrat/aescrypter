@@ -14,9 +14,9 @@ const (
 	nonceSize = 16
 )
 
-type AES struct{}
+type Crypter struct{}
 
-func (crypter *AES) Encrypt(key string, data []byte) ([]byte, error) {
+func (crypter *Crypter) Encrypt(key string, data []byte) ([]byte, error) {
 	hashKey := normalize(key)
 
 	block, err := aes.NewCipher(hashKey)
@@ -39,13 +39,7 @@ func (crypter *AES) Encrypt(key string, data []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
-func (crypter *AES) createMac(key []byte, data []byte) []byte {
-	mac := hmac.New(sha256.New, key)
-	mac.Write(data)
-	return mac.Sum(nil)
-}
-
-func (crypter *AES) Decrypt(key string, data []byte) ([]byte, error) {
+func (crypter *Crypter) Decrypt(key string, data []byte) ([]byte, error) {
 	hashKey := normalize(key)
 
 	block, err := aes.NewCipher(hashKey)
@@ -80,7 +74,7 @@ func normalize(key string) []byte {
 }
 
 func New() *Crypter {
-	return &AES{}
+	return &Crypter{}
 }
 
 /*
