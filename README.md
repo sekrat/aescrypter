@@ -44,6 +44,7 @@ Now, when you `confidant.Put(...)` secrets, they will be encrypted pretty strong
 
 ## History ##
 
+* v1.0.0 - Initial release
 
 ## License ##
 
